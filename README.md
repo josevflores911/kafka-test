@@ -53,22 +53,22 @@ services:
 
 docker-compose up -d
 
-2. Ejecutar el productor (Pedidos)
+### 2. Ejecutar el productor (Pedidos)
 cd producer_pedido
 mvn spring-boot:run
 
-3. Ejecutar el consumidor (Facturación)
+### 3. Ejecutar el consumidor (Facturación)
 cd consumer_facturacion
 mvn spring-boot:run
 
-📬 Flujo de trabajo
+## 📬 Flujo de trabajo
 El servicio producer_pedido expone una API REST (por ejemplo, /pedidos) para enviar pedidos.
 
 Al recibir una petición, publica un mensaje en un tópico de Kafka.
 
 El servicio consumer_facturacion escucha ese tópico y procesa el mensaje.
 
-📮 Ejemplo de request al productor
+## 📮 Ejemplo de request al productor
 
 POST http://localhost:8081/pedidos
 Content-Type: application/json
