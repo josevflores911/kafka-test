@@ -10,7 +10,7 @@ export interface Factura {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FacturaService {
   private apiUrl = 'http://localhost:8090/facturas';
@@ -19,5 +19,16 @@ export class FacturaService {
 
   obtenerFacturas(): Observable<Factura[]> {
     return this.http.get<Factura[]>(this.apiUrl);
+  }
+
+  actualizarFactura(index: number, factura: Factura): Observable<Factura> {
+    return this.http.put<Factura>(
+      `http://localhost:8090/facturas/${index}`,
+      factura
+    );
+  }
+
+  eliminarFactura(index: number): Observable<void> {
+    return this.http.delete<void>(`http://localhost:8090/facturas/${index}`);
   }
 }

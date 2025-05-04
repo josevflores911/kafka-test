@@ -7,4 +7,5 @@ public class PedidoRequest {
     private String productoId;
     private int cantidad;
     private String clienteEmail;
+    private int precio;
 }

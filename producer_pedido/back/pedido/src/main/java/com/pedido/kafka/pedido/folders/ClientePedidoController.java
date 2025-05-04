@@ -23,7 +23,7 @@ public class ClientePedidoController {
         // Aquí podrías guardar el pedido en una base de datos (si lo deseas)
 
         // Publicar evento a Kafka
-        String evento = "Pedido creado: productoId=" + pedido.getProductoId() + ", cantidad=" + pedido.getCantidad();
+        String evento = "Pedido creado: productoId=" + pedido.getProductoId() + ", cantidad=" + pedido.getCantidad()+ ", precio=" + pedido.getPrecio();
         pedidoProducer.publicarEvento(evento);
 
         return ResponseEntity.ok("Pedido recibido y evento publicado");

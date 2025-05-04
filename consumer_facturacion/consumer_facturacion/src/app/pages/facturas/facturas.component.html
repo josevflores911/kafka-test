@@ -1,15 +1,50 @@
 <h1>{{ title }}</h1>
-
 <h2>Facturas Generadas</h2>
-<ul *ngIf="facturas.length > 0; else sinFacturas">
-  <li *ngFor="let f of facturas">
-    Producto: {{ f.productoId }},
-    Cantidad: {{ f.cantidad }},
-    Cliente: {{ f.clienteEmail }},
-    Total: {{ f.total | currency }}
-  </li>
-</ul>
+
+<table *ngIf="facturas.length > 0; else sinFacturas" class="factura-table">
+  <thead>
+    <tr>
+      <th>Producto</th>
+      <th>Cantidad</th>
+      <th>Cliente</th>
+      <th>Total</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let f of facturas; let i = index">
+      <td>{{ f.productoId }}</td>
+      <td>{{ f.cantidad }}</td>
+      <td>{{ f.clienteEmail }}</td>
+      <td>{{ f.total | currency }}</td>
+      <td>
+        <button class="btn btn-update" (click)="abrirModal(f, i)">Actualizar</button>
+        <button class="btn btn-delete" (click)="eliminarFactura(i)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 <ng-template #sinFacturas>
   <p>No hay facturas aún.</p>
 </ng-template>
+
+<!-- Modal -->
+<div class="modal-backdrop" *ngIf="modalAbierto">
+  <div class="modal">
+    <h3>Actualizar Factura</h3>
+    <p><strong>Producto:</strong> {{ facturaSeleccionada?.productoId }}</p>
+    <p><strong>Cantidad:</strong> {{ facturaSeleccionada?.cantidad }}</p>
+    <p><strong>Total:</strong> {{ facturaSeleccionada?.total | currency }}</p>
+
+    <label>
+      Cliente Email:
+      <input [(ngModel)]="facturaSeleccionada.clienteEmail" />
+    </label>
+
+    <div class="modal-actions">
+      <button (click)="confirmarActualizacion()">Confirmar</button>
+      <button (click)="cerrarModal()">Cancelar</button>
+    </div>
+  </div>
+</div>

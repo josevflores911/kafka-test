@@ -23,11 +23,15 @@ public class FacturacionConsumer {
         // Por ejemplo, se asume que el mensaje contiene la información en el formato "Pedido creado: productoId=123, cantidad=2"
 
         String[] partes = evento.split(":")[1].split(",");
+
+
+
         String productoId = partes[0].split("=")[1].trim();
         int cantidad = Integer.parseInt(partes[1].split("=")[1].trim());
+        int precioUnitario = Integer.parseInt(partes[2].split("=")[1].trim());
 
         // Simulamos un cálculo de total (puedes ajustarlo según la lógica de tu negocio)
-        double precioUnitario = 100.0; // Precio fijo para simplificar el ejemplo
+//        double precioUnitario = 100.0; // Precio fijo para simplificar el ejemplo
         double total = cantidad * precioUnitario;
 
         // Generamos la factura
@@ -40,5 +44,21 @@ public class FacturacionConsumer {
 
     public List<Factura> obtenerFacturas() {
         return facturas;
+    }
+
+    public Factura actualizarFactura(int index, Factura nuevaFactura) {
+        if (index >= 0 && index < facturas.size()) {
+            facturas.set(index, nuevaFactura);
+            return nuevaFactura;
+        }
+        throw new IndexOutOfBoundsException("Factura no encontrada");
+    }
+
+    public void eliminarFactura(int index) {
+        if (index >= 0 && index < facturas.size()) {
+            facturas.remove(index);
+        } else {
+            throw new IndexOutOfBoundsException("Factura no encontrada");
+        }
     }
 }

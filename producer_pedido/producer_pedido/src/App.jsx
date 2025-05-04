@@ -3,7 +3,10 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
+
 import Pedidos from './pages/Pedidos';
+import ListaPedidos from './pages/ListaPedidos';
+
 import Footer from './components/Footer';
 import MainContent from './components/MainContent';
 
@@ -18,8 +21,8 @@ function App() {
         <main className="main-content">
             <Routes>
               <Route path="/" element={<Home />} />
-
               <Route path="/pedidos" element={<Pedidos />} />
+              <Route path="/listapedidos" element={<ListaPedidos />} />
             </Routes>
           </main>
       </div>
