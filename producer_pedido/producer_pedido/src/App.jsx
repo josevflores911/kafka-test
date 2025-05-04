@@ -1,77 +1,34 @@
-import React, { useState } from 'react';
+import './styles/component.css'
+import Header from './components/Header';
+import Sidebar from './components/Sidebar';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Pedidos from './pages/Pedidos';
+import Footer from './components/Footer';
+import MainContent from './components/MainContent';
 
 function App() {
-  const [mensaje, setMensaje] = useState('');
-
-  const enviarPedido = async () => {
-    try {
-      const response = await fetch('http://localhost:8081/pedidos', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          productoId: 'abc123',
-          cantidad: 5,
-          clienteEmail: 'cliente@ejemplo.com',
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Error al enviar el pedido');
-      }
-
-      const data = await response.json();
-      setMensaje(`Pedido enviado con éxito: ${JSON.stringify(data)}`);
-    } catch (error) {
-      setMensaje(`Error: ${error.message}`);
-    }
-  };
-
   return (
-    <div>
-      <h1>Crear Pedido</h1>
-      <button onClick={enviarPedido}>Enviar Pedido</button>
-      <p>{mensaje}</p>
+    <Router>
+    <div className="layout">
+      <Header />
+      <div className="content-wrapper">
+        <Sidebar />
+        {/* <MainContent /> */}
+        <main className="main-content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+
+              <Route path="/pedidos" element={<Pedidos />} />
+            </Routes>
+          </main>
+      </div>
+      <Footer />
     </div>
+
+    </Router>
   );
 }
 
 export default App;
 
-
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import './App.css'
-
-// function App() {
-//   const [count, setCount] = useState(0)
-
-//   return (
-//     <>
-//       <div>
-//         <a href="https://vite.dev" target="_blank">
-//           <img src={viteLogo} className="logo" alt="Vite logo" />
-//         </a>
-//         <a href="https://react.dev" target="_blank">
-//           <img src={reactLogo} className="logo react" alt="React logo" />
-//         </a>
-//       </div>
-//       <h1>Vite + React</h1>
-//       <div className="card">
-//         <button onClick={() => setCount((count) => count + 1)}>
-//           count is {count}
-//         </button>
-//         <p>
-//           Edit <code>src/App.jsx</code> and save to test HMR
-//         </p>
-//       </div>
-//       <p className="read-the-docs">
-//         Click on the Vite and React logos to learn more
-//       </p>
-//     </>
-//   )
-// }
-
-// export default App

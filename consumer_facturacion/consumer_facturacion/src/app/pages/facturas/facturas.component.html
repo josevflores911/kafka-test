@@ -1,0 +1,15 @@
+<h1>{{ title }}</h1>
+
+<h2>Facturas Generadas</h2>
+<ul *ngIf="facturas.length > 0; else sinFacturas">
+  <li *ngFor="let f of facturas">
+    Producto: {{ f.productoId }},
+    Cantidad: {{ f.cantidad }},
+    Cliente: {{ f.clienteEmail }},
+    Total: {{ f.total | currency }}
+  </li>
+</ul>
+
+<ng-template #sinFacturas>
+  <p>No hay facturas aún.</p>
+</ng-template>
