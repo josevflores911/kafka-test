@@ -22,9 +22,12 @@ public class FacturacionConsumer {
         // Lógica para extraer los detalles del pedido desde el evento
         // Por ejemplo, se asume que el mensaje contiene la información en el formato "Pedido creado: productoId=123, cantidad=2"
 
+        if (evento == null || evento.isEmpty()) {
+            System.err.println("Mensaje vacío o nulo recibido");
+            return; // Salir del método si el mensaje es nulo o vacío
+        }
+
         String[] partes = evento.split(":")[1].split(",");
-
-
 
         String productoId = partes[0].split("=")[1].trim();
         int cantidad = Integer.parseInt(partes[1].split("=")[1].trim());
